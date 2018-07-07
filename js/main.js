@@ -14,15 +14,15 @@ let playBtn = document.getElementById('play');
 let sleepBtn = document.getElementById('sleep');
 let myPet = createPet(10, 20, 30);
 let myPetMessages = {
-    hungerMessage: {
+    hunger: {
         info: 'I\'m fullfill!!!',
         warning: 'Feed me human!'
     },
-    hapinessMessage: {
+    hapiness: {
         info: 'Happy!!! I don\'t want to play now!',
         warning: 'I\'m so sad! PLay with me!'
     },
-    restMessage: {
+    rest: {
         info: `ZZZZZZZZZZZZZZZZZZZZZ!`,
         warning: `I want to sleep!`,
     }
@@ -173,12 +173,12 @@ function displayMessages(textMessage, typeOfMessage) {
 }
 function increaseLevel(value, type) {
     if (value > 20 && value < 35) {
-        displayMessages(myPet[type].warning, 'warning');
+        displayMessages(myPetMessages[type].warning, 'warning');
     } else if ((value > 90) && (value <= 100)) {
-        displayMessages(myPet[type].info, 'info')
+        displayMessages(myPetMessages[type].info, 'info')
     } else if (value > 100) {
         value = 100;
-        displayMessages(myPet[type].info, 'info')
+        displayMessages(myPetMessages[type].info, 'info')
     }
     myPet[type].progress += myPet[type].step;
     if (myPet[type].progress > 100) {

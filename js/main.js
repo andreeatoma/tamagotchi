@@ -80,21 +80,23 @@ function addCharacterDetails(e) {
     submitBtn.classList.add('hidden');
     showInfo();
 }
-function showCharacterDetails(details = [], detailsList) {
-    detailsList.innerHTML = details.map((detail) => {
-        return `
+function showCharacterDetails(detail, detailsList) {
+    // detailsList.innerHTML = details.map((detail) => {
+
+
+        return detailsList.innerHTML =`
         <ul class="configured_character_ul">
-            <li class="detail_li">${detail.name}<img src="images/${detail.image}" alt="" class="round_img"></li>
-            <li class="detail_li">${detail.birthday}</li>
-            <li class="detail_li">I am a: ${detail.chosenPet} owner</li>
+            <li class="detail_li">${detail[0].name}<img src="images/${detail[0].image}" alt="" class="round_img"></li>
+            <li class="detail_li">${detail[0].birthday}</li>
+            <li class="detail_li">I am a: ${detail[0].chosenPet} owner</li>
         </ul>
-        <div class="congrats_message"><p>${detail.congratsMessage}</p></div>
+        <div class="congrats_message"><p>${detail[0].congratsMessage}</p></div>
       `;
-    }).join('');
+    // }).join('');
 }
+let inputFile = document.getElementById("chooseImg");
 function displayImage() {
     let create_pet = document.querySelector('.character_details');
-    let inputFile = document.getElementById("chooseImg");
     let firstFile = inputFile.files[0];
     let reader = new FileReader();
     reader.onload = function (e) {

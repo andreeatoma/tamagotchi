@@ -1,4 +1,3 @@
-@import url("fontawesome.css");
 html, body {
     height: 100%;
 }
@@ -10,12 +9,12 @@ body {
     background-attachment: fixed;
 }
 * {
-    font: 16px 'Courier New', Courier, monospace;
+    font: 1em 'Courier New', Courier, monospace;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-button, input {
+input {
     border: none;
     outline: none;
 }
@@ -54,8 +53,6 @@ h1 {
     width: 300px;
     margin: 0 30px 30px 30px;
     padding: 30px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 .character_details {
@@ -64,15 +61,14 @@ h1 {
 .interaction_app_section {
     width: calc(100% - 300px);
 }
-.form_group label {
+.form__group label {
     display: block;
     margin-bottom: 5px;
 }
-.form_group {
+.form__group {
     margin-bottom: 10px;
 }
 .form_element, 
-.character_details button,
 .input_file + label {
     width: 90%;
     height: 30px;
@@ -98,9 +94,9 @@ h1 {
     color: #fff;
 }
 .character_details button {
+    width: 90%;
     background: rgb(182, 17, 127);
     color: white;
-    line-height: 30px;
     margin: 10px 0;
 }
 .detail_li {
@@ -139,43 +135,11 @@ h1 {
 .inputfile + label * {
     pointer-events: none;
 }
-.btn_lg {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    background: transparent;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    margin-right: 15px;
-    transform: scale(1);
-    transition: all 0.25s;
-    cursor: pointer;
-    position: relative;
-}
-.btn_lg:before {
-    content: "\f2e7";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: 35px;
-}
 #play:before {
     content: "\f11b"; 
 }
 #sleep:before {
     content: "\f186";
-}
-.btn_lg:hover {
-    transform: scale(1.15);
-}
-.btn_lg i {
-    font-size: 40px;
 }
 .meter_section {
     margin-top: 50px;;
@@ -214,8 +178,6 @@ meter {
     width: 250px;
     margin: 10px auto;
     background: #eee;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
  }
  .messageBox p {
@@ -232,7 +194,18 @@ meter {
    font-size: 1.1em;
    color: #fff;
  }
- 
+ .hidden {
+     display: none;
+ }
+ .bg--warning {
+    background: #dc3545;
+ }
+ .bg--info {
+    background: #e85cde;
+ }
+ .bg--default {
+    background: #6c757d;
+ }
 @media screen and (max-width: 992px) {
     .wrapper_app {
         flex-direction: column;

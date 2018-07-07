@@ -1,0 +1,55 @@
+/* block header, form-element */
+/* block element __ */
+/* element modifier block__element--element */
+.btn {
+    font-size: 1em;
+    padding: .3em;
+    color: #000;
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+}
+.btn--error {
+    border: 1px solid red;
+}
+.btn--success {
+    border: 1px solid #398439;
+}
+.btn--large {
+    min-width: 100px;
+    min-height: 100px;
+    font-size: 1.2em;
+    transform: scale(1);
+    transition: all 0.25s;
+}
+.btn--large:before {
+    content: "\f2e7";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 50px;
+    min-height: 50px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2em;
+}
+.btn--large:hover {
+    transform: scale(1.15);
+}
+.btn--loading {
+    pointer-events: none;
+}
+.btn__loading-text {
+    display: none;
+}
+.btn--loading .btn__default-text {
+    display: none;
+}
+.btn--loading .btn__loading-text {
+    display: block;
+}

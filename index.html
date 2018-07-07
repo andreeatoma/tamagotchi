@@ -10,76 +10,77 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/buttons.css">
 </head>
 
 <body>
     <div id="particles-js"></div>
     <main>
-        <section>
-            <h1>Your beautiful pet:</h1>
-            <div class="wrapper_app">
-                <div class="configuration_app_section">
-                    <div class="configured_character_details"></div>
-                    <form class="character_details">
-                        <div class="form_group">
-                            <label for="name">Pet Name</label>
-                            <input type="text" id="name" class="form_element" name="name" placeholder="Enter a name" required>
-                        </div>
-                        <div class="form_group">
-                            <label for="birthday">Pet Birthday</label>
-                            <input type="date" id="birthday" class="form_element" name="birthday" placeholder="Enter a birthday" required>
-                        </div>
-                        <div class="form_group">
-                            <input type="file" id="chooseImg" class="input_file" name="image" data-multiple-caption="{count} files selected" multiple
-                                onchange="displayImage()">
-                            <label for="chooseImg">
-                                <span>Choose a picture</span>
-                            </label>
-                        </div>
-                        <div class="form_group">
-                            <label for="myPet">Select a pet:</label>
-                            <select name="myPet" id="myPet" class="form_element">
-                                <option value="cat">cat</option>
-                                <option value="dog">dog</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="create_pet">Create my pet</button>
-                    </form>
-                </div>
-                <div class="interaction_app_section">
-                    <div class="action_buttons">
-                        <button type="button" id="feed" class="btn_lg" title="feed" data-index="0"></button>
-                        <button type="button" id="play" class="btn_lg" title="play" data-index="1"></button>
-                        <button type="button" id="sleep" class="btn_lg" title="sleep" data-index="2"></button>
+        <h1>Your beautiful pet:</h1>
+        <div class="wrapper_app">
+            <div class="configuration_app_section">
+                <div class="configured_character_details"></div>
+                <form class="character_details">
+                    <div class="form__group">
+                        <label for="name">Pet Name</label>
+                        <input type="text" id="name" class="form_element" name="name" placeholder="Enter a name" required>
                     </div>
-                    <div class="meter_section">
-                        <div>
-                            <span>Hunger level</span>
-                            <meter>
-                                <div id="food" class="progress" data-index="0"></div>
-                            </meter>
-                        </div>
-                        <div>
-                            <span>Hapiness level</span>
-                            <meter>
-                                <div id="joy" class="progress" data-index="1"></div>
-                            </meter>
-                        </div>
-                        <div>
-                            <span>Rest level</span>
-                            <meter>
-                                <div id="rest" class="progress" data-index="2"></div>
-                            </meter>
-                        </div>
-                        <div>
-                            <span>Age level</span>
-                            <meter></meter>
-                        </div>
+                    <div class="form__group">
+                        <label for="birthday">Pet Birthday</label>
+                        <input type="date" id="birthday" class="form_element" name="birthday" placeholder="Enter a birthday" required>
+                    </div>
+                    <div class="form__group">
+                        <input type="file" id="chooseImg" class="input_file" name="image" data-multiple-caption="{count} files selected" multiple>
+                        <label for="chooseImg">
+                            <span>Choose a picture</span>
+                        </label>
+                    </div>
+                    <div class="form__group">
+                        <label for="myPet">Select a pet:</label>
+                        <select name="myPet" id="myPet" class="form_element">
+                            <option value="cat">cat</option>
+                            <option value="dog">dog</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">
+                        <span class="btn__default-text">Create my pet</span>
+                        <span class="btn__loading-text">Loading</span>
+                    </button>
+                </form>
+            </div>
+            <div class="interaction_app_section">
+                <div class="action_buttons">
+                    <button type="button" id="feed" class="btn btn--large" title="feed" data-index="0"></button>
+                    <button type="button" id="play" class="btn btn--large" title="play" data-index="1"></button>
+                    <button type="button" id="sleep" class="btn btn--large" title="sleep" data-index="2"></button>
+                </div>
+                <div class="meter_section">
+                    <div>
+                        <span>Hunger level</span>
+                        <meter>
+                            <div id="food" class="progress" data-index="0"></div>
+                        </meter>
+                    </div>
+                    <div>
+                        <span>Hapiness level</span>
+                        <meter>
+                            <div id="joy" class="progress" data-index="1"></div>
+                        </meter>
+                    </div>
+                    <div>
+                        <span>Rest level</span>
+                        <meter>
+                            <div id="rest" class="progress" data-index="2"></div>
+                        </meter>
+                    </div>
+                    <div>
+                        <span>Age level</span>
+                        <meter></meter>
                     </div>
                 </div>
             </div>
-            <div class="wrapper_messages"></div>
-        </section>
+        </div>
+        <div class="wrapper_messages"></div>
     </main>
     <footer>
         <p>Made with
@@ -89,28 +90,7 @@
     <script src="plugins/particles/particles.min.js"></script>
     <script src="plugins/particles/demo/js/app.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        /** input file code */
-        let inputs = document.querySelectorAll('.input_file');
-        inputs.forEach((input) => {
-            let label = input.nextElementSibling;
-            let labelVal = label.innerHTML;
 
-            input.addEventListener('change', function (e) {
-                let fileName = '';
-                if (this.files && this.files.length > 1)
-                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
-                else
-                    fileName = e.target.value.split('\\').pop();
-
-                if (fileName)
-                    label.querySelector('span').innerHTML = fileName;
-                else
-                    label.innerHTML = labelVal;
-            });
-        });
-
-    </script>
 </body>
 
 </html>

@@ -53,3 +53,8 @@
 .btn--loading .btn__loading-text {
     display: block;
 }
+.btn--restart {
+    display: block;
+    margin: 15px auto;
+    font-size: 1.4em;
+}

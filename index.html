@@ -19,15 +19,15 @@
         <h1>Your beautiful pet:</h1>
         <div class="wrapper_app">
             <div class="configuration_app_section">
-                <div class="configured_character_details"></div>
-                <form class="character_details">
-                    <div class="form__group">
+                <div class="character-info"></div>
+                <form class="initial-setup" id="setup_form">
+                    <!-- <div class="form__group">
                         <label for="name">Pet Name</label>
-                        <input type="text" id="name" class="form_element" name="name" placeholder="Enter a name" required>
-                    </div>
+                        <input type="text" id="name" class="input" name="name" placeholder="Enter a name" required>
+                    </div> -->
                     <div class="form__group">
                         <label for="birthday">Pet Birthday</label>
-                        <input type="date" id="birthday" class="form_element" name="birthday" placeholder="Enter a birthday" required>
+                        <input type="date" id="birthday" class="input" name="birthday" placeholder="Enter a birthday" required>
                     </div>
                     <div class="form__group">
                         <input type="file" id="chooseImg" class="input_file" name="image" data-multiple-caption="{count} files selected" multiple>
@@ -37,13 +37,20 @@
                     </div>
                     <div class="form__group">
                         <label for="myPet">Select a pet:</label>
-                        <select name="myPet" id="myPet" class="form_element">
-                            <option value="cat">cat</option>
-                            <option value="dog">dog</option>
+                        <select name="myPet" id="myPet" class="input">
+                            <!-- <option value="cat">cat</option>
+                            <option value="dog">dog</option> -->
                         </select>
                     </div>
                     <button type="submit" class="btn">
                         <span class="btn__default-text">Create my pet</span>
+                        <span class="btn__loading-text">Loading</span>
+                    </button>
+                </form>
+                <form class="add-pet" id="add-pet">
+                    <input type="text" name="myPet" class="input">
+                    <button type="submit" class="btn btn--add">
+                        <span class="btn__default-text">Add new pet</span>
                         <span class="btn__loading-text">Loading</span>
                     </button>
                 </form>
@@ -73,13 +80,14 @@
                             <div id="rest" class="progress" data-index="2"></div>
                         </meter>
                     </div>
-                    <div>
+                    <!-- <div>
                         <span>Age level</span>
                         <meter></meter>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
+        <div class="new_wrapper_app"></div>
         <div class="wrapper_messages"></div>
     </main>
     <footer>
@@ -87,7 +95,7 @@
             <i class="fas fa-heart"></i> by Diana and Alex </p>
     </footer>
     <!-- scripts -->
-    <script src="plugins/particles/particles.min.js"></script>
+    <script src="plugins/particles/particles.js"></script>
     <script src="plugins/particles/demo/js/app.js"></script>
     <script src="js/main.js"></script>
 

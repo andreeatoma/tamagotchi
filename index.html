@@ -17,78 +17,19 @@
     <div id="particles-js"></div>
     <main>
         <h1>Your beautiful pet:</h1>
-        <div class="wrapper_app">
-            <div class="configuration_app_section">
-                <div class="character-info"></div>
-                <form class="initial-setup" id="setup_form">
-                    <!-- <div class="form__group">
-                        <label for="name">Pet Name</label>
-                        <input type="text" id="name" class="input" name="name" placeholder="Enter a name" required>
-                    </div> -->
-                    <div class="form__group">
-                        <label for="birthday">Pet Birthday</label>
-                        <input type="date" id="birthday" class="input" name="birthday" placeholder="Enter a birthday" required>
-                    </div>
-                    <div class="form__group">
-                        <input type="file" id="chooseImg" class="input_file" name="image" data-multiple-caption="{count} files selected" multiple>
-                        <label for="chooseImg">
-                            <span>Choose a picture</span>
-                        </label>
-                    </div>
-                    <div class="form__group">
-                        <label for="myPet">Select a pet:</label>
-                        <select name="myPet" id="myPet" class="input">
-                            <!-- <option value="cat">cat</option>
-                            <option value="dog">dog</option> -->
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">
-                        <span class="btn__default-text">Create my pet</span>
-                        <span class="btn__loading-text">Loading</span>
-                    </button>
-                </form>
-                <form class="add-pet" id="add-pet">
-                    <input type="text" name="myPet" class="input">
-                    <button type="submit" class="btn btn--add">
+        <div class="wrapper-app">
+            <div class="pet-configuration">
+                <form class="add-pet" id="form-add-pet">
+                    <input type="text" name="myPet" class="input" required>
+                    <button type="submit" id="add_new_pet" class="btn btn--add">
                         <span class="btn__default-text">Add new pet</span>
                         <span class="btn__loading-text">Loading</span>
                     </button>
                 </form>
             </div>
-            <div class="interaction_app_section">
-                <div class="action_buttons">
-                    <button type="button" id="feed" class="btn btn--large" title="feed" data-index="0"></button>
-                    <button type="button" id="play" class="btn btn--large" title="play" data-index="1"></button>
-                    <button type="button" id="sleep" class="btn btn--large" title="sleep" data-index="2"></button>
-                </div>
-                <div class="meter_section">
-                    <div>
-                        <span>Hunger level</span>
-                        <meter>
-                            <div id="food" class="progress" data-index="0"></div>
-                        </meter>
-                    </div>
-                    <div>
-                        <span>Hapiness level</span>
-                        <meter>
-                            <div id="joy" class="progress" data-index="1"></div>
-                        </meter>
-                    </div>
-                    <div>
-                        <span>Rest level</span>
-                        <meter>
-                            <div id="rest" class="progress" data-index="2"></div>
-                        </meter>
-                    </div>
-                    <!-- <div>
-                        <span>Age level</span>
-                        <meter></meter>
-                    </div> -->
-                </div>
-            </div>
+            <div class="pet-interaction"></div>
         </div>
-        <div class="new_wrapper_app"></div>
-        <div class="wrapper_messages"></div>
+        <div class="wrapper-messages"></div>
     </main>
     <footer>
         <p>Made with
@@ -97,8 +38,9 @@
     <!-- scripts -->
     <script src="plugins/particles/particles.js"></script>
     <script src="plugins/particles/demo/js/app.js"></script>
-    <script src="js/main.js"></script>
-
+    <script src="js/pet.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

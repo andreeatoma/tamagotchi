@@ -19,15 +19,15 @@
         <h1>Your beautiful pet:</h1>
         <div class="wrapper-app">
             <div class="pet-configuration">
-                <form class="add-pet" id="form-add-pet">
-                    <input type="text" name="myPet" class="input" required>
-                    <button type="submit" id="add_new_pet" class="btn btn--add">
+                <div class="add-pet" id="form-add-pet">
+                    <input type="text" name="myPet" class="input" id="inputPet">
+                    <button type="submit" id="add-new-pet" class="btn btn--add">
                         <span class="btn__default-text">Add new pet</span>
                         <span class="btn__loading-text">Loading</span>
                     </button>
-                </form>
+                </div>
             </div>
-            <div class="pet-interaction"></div>
+            <div id="pet-interaction"></div>
         </div>
         <div class="wrapper-messages"></div>
     </main>
@@ -38,7 +38,7 @@
     <!-- scripts -->
     <script src="plugins/particles/particles.js"></script>
     <script src="plugins/particles/demo/js/app.js"></script>
-    <script src="js/pet.js"></script>
+    <script src="js/PetsModel.js"></script>
     <script src="js/view.js"></script>
     <script src="js/app.js"></script>
 </body>

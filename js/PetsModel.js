@@ -16,10 +16,8 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
         },
         age,
         isAlive: function () {
-            if ((pet.rest.progress === 10) || (pet.hunger.progress === 10) || (pet.hapiness.progress === 10) || pet.age === 15) {
+            if ((pet.rest.progress <= 10) || (pet.hunger.progress <= 20) || (pet.hapiness.progress <= 20) || pet.age === 15) {
                 clearInterval(pet.idInterval);
-                //displayMessages(`SORRY, YOUR PET IS DEAD!`, 'warning');
-                //[...meterSection].forEach(section => section.appendChild(createRestartButton()));
                 return false;
             } else {
                 return true;
@@ -38,15 +36,11 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
             pet.decreaseStateFood();
             pet.decreaseStateJoy();
             pet.decreaseStateRest();
-            pet.isAlive();
             onUpdateCb();
+            pet.isAlive();
         }, 5000),
     }
     let publicAPI = {
-        subscribe(observer) {
-            myObservers.push(observer);
-            notifySubscribers();
-        },
         name: name,
         getName: function () {
             return pet.name;
@@ -88,7 +82,7 @@ let PetsModel = (function () {
 
     let petsData = JSON.parse(localStorage.getItem("pets") || "[]");
     petsData.forEach(petData => {
-        let newPet = createPet(petData.name, notifySubscribers, petData.progressHunger, petData.progressHapiness, petData.progressRest);
+        let newPet = createPet(petData.name, notifySubscribers, petData.hunger, petData.happy, petData.sleep);
         myPets.push(newPet);
     });
 
@@ -101,13 +95,13 @@ let PetsModel = (function () {
             if (typeof observer.notify === "function") {
                 observer.notify(myPets);
             }
-        })
+        });
+        updateLocalStorage();
     }
     return {
-        addPet: function (name, progressHunger, progressHapiness, progressRest) {
-            let newPet = createPet(name, notifySubscribers, progressHunger, progressHapiness, progressRest);
+        addPet: function (name, hunger, happy, rest) {
+            let newPet = createPet(name, notifySubscribers, hunger, happy, rest);
             myPets.push(newPet);
-            updateLocalStorage();
             notifySubscribers();
             return newPet;
         },
@@ -115,7 +109,6 @@ let PetsModel = (function () {
             myPets.forEach(function (el) {
                 myPets.splice(el, 1)
             });
-            updateLocalStorage()
             notifySubscribers();
         },
         subscribe(observer) {
@@ -130,7 +123,6 @@ let PetsModel = (function () {
                 return false;
             });
             myPet.giveFood();
-            updateLocalStorage();
             notifySubscribers();
         },
         play: function (petName) {
@@ -141,7 +133,6 @@ let PetsModel = (function () {
                 return false;
             });
             myPet.play();
-            updateLocalStorage();
             notifySubscribers();
         },
         sleep: function (petName) {
@@ -152,7 +143,6 @@ let PetsModel = (function () {
                 return false;
             });
             myPet.sleep();
-            updateLocalStorage();
             notifySubscribers();
         }
     }

@@ -88,41 +88,51 @@ function createStatsUI(pet, PetsModel, onFeedCb, onPlayCb, onSleepCb) {
         onSleepCb(pet.name);
     });
 
-
     return container_pet;
 }
 
-function displayMessages(textMessage, typeOfMessage) {
-    let wrapper_messages = document.getElementsByClassName("wrapper-messages")[0];
+function displayMessages(PetsModel, textMessage, typeOfMessage) {
     let container_messages = document.createElement('div');
     container_messages.setAttribute('class', 'message__box');
-    wrapper_messages.appendChild(container_messages);
+    // wrapper_messages.appendChild(container_messages);
 
-    let message = document.createElement('p');
-    message.textContent = textMessage;
-    container_messages.appendChild(message);
+    container_messages.notify = function (messagesList) {
+        container_messages.innerHTML = null;
+        messagesList.forEach(function () {
 
-    let closeBtn = document.createElement('button');
-    closeBtn.textContent = 'x';
-    container_messages.appendChild(closeBtn);
+            let message = document.createElement('p');
+            message.textContent = textMessage;
+            container_messages.appendChild(message);
 
-    closeBtn.addEventListener('click', function (event) {
-        event.target.parentNode.parentNode.removeChild(container_messages);
-    });
-    switch (typeOfMessage) {
-        case 'warning':
-            container_messages.classList.add('bg--warning');
-            break;
-        case 'info':
-            container_messages.classList.add('bg--info');
-            break;
-        default:
-            container_messages.classList.add('bg--default');
+            let closeBtn = document.createElement('button');
+            closeBtn.textContent = 'x';
+            container_messages.appendChild(closeBtn);
+
+            closeBtn.addEventListener('click', function (event) {
+                event.target.parentNode.parentNode.removeChild(container_messages);
+            });
+            switch (typeOfMessage) {
+                case 'warning':
+                    container_messages.classList.add('bg--warning');
+                    break;
+                case 'info':
+                    container_messages.classList.add('bg--info');
+                    break;
+                default:
+                    container_messages.classList.add('bg--default');
+            }
+            // remove the message after 3 seconds
+            setTimeout(function () {
+                if (container_messages) {
+                    container_messages.parentNode.removeChild(container_messages);
+                }
+            }, 3000);
+
+        });
     }
-    // remove the message after 3 seconds
-    setTimeout(function () {
-        if (container_messages) {
-            container_messages.parentNode.removeChild(container_messages);
-        }
-    }, 3000);
+
+    PetsModel.subscribe(container_messages);
+    return container_messages;
+
 }
+

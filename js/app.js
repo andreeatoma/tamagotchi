@@ -1,4 +1,3 @@
-let meters = {};
 let addNewPet = document.getElementById("add-new-pet");
 let wrapper_pet = document.getElementById('pet-interaction');
 let config_pet = document.getElementsByClassName('pet-configuration')[0];

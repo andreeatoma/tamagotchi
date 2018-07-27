@@ -1,4 +1,4 @@
-function createPet(name, progressHunger = 80, progressHapiness = 90, progressRest = 100, awake = false, step = 10, age = 0, idInterval) {
+function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90, progressRest = 100, awake = false, step = 10, age = 0, idInterval) {
     let pet = {
         name,
         hunger: {
@@ -15,100 +15,42 @@ function createPet(name, progressHunger = 80, progressHapiness = 90, progressRes
             step
         },
         age,
-        // increaseState: function (progressBar, value, type) {
-        //     pet.increaseLevel(value, type);
-        //     pet.changeProgressUI(progressBar, pet[type].progress);
-        // },
-        // increaseLevel: function (value, type) {
-        //     if (value > 20 && value < 35) {
-        //         displayMessages(PET_MESSAGES[type].warning, 'warning');
-        //     } else if ((value > 90) && (value <= 100)) {
-        //         displayMessages(PET_MESSAGES[type].info, 'info')
-        //     } else if (value > 100) {
-        //         value = 100;
-        //         displayMessages(PET_MESSAGES[type].info, 'info')
-        //     }
-        //     pet[type].progress += pet[type].step;
-        //     if (pet[type].progress > 100) {
-        //         pet[type].progress = 100;
-        //     }
-        // },
-        // changeProgressUI: function (progressBar, value) {
-        //     // for (let i = 0; i < progressBar.length; i++) {
-        //     if (value < 40) {
-        //         progressBar.className = "progress state--danger";
-        //     }
-        //     else if (value < 70) {
-        //         progressBar.className = "progress state--warning";
-        //     }
-        //     else if (value < 100) {
-        //         progressBar.className = "progress state--success";
-        //     }
-        //     else if (value >= 100) {
-        //         value = 100;
-        //         progressBar.className = "progress state--success";
-        //     }
-        //     progressBar.style.width = value + "%";
-        // },
-        // decreaseState: function (progressBar, value, type) {
-        //     pet.decreaseLevel(type);
-        //     pet.changeProgressUI(progressBar, pet[type].progress);
-        // },
-        // decreaseLevel: function (type) {
-        //     pet[type].progress -= pet[type].step;
-        //     if (pet[type].progress <= 10) {
-        //         pet[type].progress = 10;
-        //     }
-        // },
-        // decreaseStateFood: function () {
-        //     return pet.decreaseState(meters[pet.name].foodMeter, pet.hunger.progress, 'hunger');
-        // },
-        // decreaseStateJoy: function () {
-        //     return pet.decreaseState(meters[pet.name].playMeter, pet.hapiness.progress, 'hapiness');
-        // },
-        // decreaseStateRest: function () {
-        //     return pet.decreaseState(meters[pet.name].sleepMeter, pet.rest.progress, 'rest');
-        // },
-        // idInterval: setInterval(function () {
-        //     pet.decreaseStateFood();
-        //     pet.decreaseStateJoy();
-        //     pet.decreaseStateRest();
-        //     pet.isAlive();
-        // }, 5000),
         isAlive: function () {
             if ((pet.rest.progress === 10) || (pet.hunger.progress === 10) || (pet.hapiness.progress === 10) || pet.age === 15) {
                 clearInterval(pet.idInterval);
-                displayMessages(`SORRY, YOUR PET IS DEAD!`, 'warning');
+                //displayMessages(`SORRY, YOUR PET IS DEAD!`, 'warning');
                 //[...meterSection].forEach(section => section.appendChild(createRestartButton()));
                 return false;
             } else {
                 return true;
             };
         },
+        decreaseStateFood() {
+            pet.hunger.progress -= pet.hunger.step;
+        },
+        decreaseStateJoy() {
+            pet.hapiness.progress -= pet.hapiness.step;
+        },
+        decreaseStateRest() {
+            pet.rest.progress -= pet.rest.step;
+        },
+        idInterval: setInterval(function () {
+            pet.decreaseStateFood();
+            pet.decreaseStateJoy();
+            pet.decreaseStateRest();
+            pet.isAlive();
+            onUpdateCb();
+        }, 5000),
     }
     let publicAPI = {
+        subscribe(observer) {
+            myObservers.push(observer);
+            notifySubscribers();
+        },
         name: name,
         getName: function () {
             return pet.name;
         },
-        // changeProgressFood: function () {
-        //     return pet.changeProgressUI(meters[pet.name].foodMeter, pet.hunger.progress);
-        // },
-        // changeProgressJoy: function () {
-        //     return pet.changeProgressUI(meters[pet.name].playMeter, pet.hapiness.progress);
-        // },
-        // changeProgressRest: function () {
-        //     return pet.changeProgressUI(meters[pet.name].sleepMeter, pet.rest.progress);
-        // },
-        // feed: function () {
-        //     return pet.increaseState(meters[pet.name].foodMeter, pet.hunger.progress, 'hunger');
-        // },
-        // play: function () {
-        //     return pet.increaseState(meters[pet.name].playMeter, pet.hapiness.progress, 'hapiness');
-        // },
-        // sleep: function () {
-        //     return pet.increaseState(meters[pet.name].sleepMeter, pet.rest.progress, 'rest');
-        // },
         serialize: function () {
             return {
                 name: name,
@@ -116,6 +58,25 @@ function createPet(name, progressHunger = 80, progressHapiness = 90, progressRes
                 happy: pet.hapiness.progress,
                 sleep: pet.rest.progress,
             }
+        },
+        // es6
+        getFood() {
+            return pet.hunger.progress;
+        },
+        getHappiness() {
+            return pet.hapiness.progress;
+        },
+        getRest() {
+            return pet.rest.progress;
+        },
+        giveFood() {
+            pet.hunger.progress += pet.hunger.step;
+        },
+        play() {
+            pet.hapiness.progress += pet.hapiness.step;
+        },
+        sleep() {
+            pet.rest.progress += pet.rest.step;
         }
     }
     return publicAPI;
@@ -127,7 +88,7 @@ let PetsModel = (function () {
 
     let petsData = JSON.parse(localStorage.getItem("pets") || "[]");
     petsData.forEach(petData => {
-        let newPet = createPet(petData.name, petData.progressHunger, petData.progressHapiness, petData.progressRest);
+        let newPet = createPet(petData.name, notifySubscribers, petData.progressHunger, petData.progressHapiness, petData.progressRest);
         myPets.push(newPet);
     });
 
@@ -144,7 +105,7 @@ let PetsModel = (function () {
     }
     return {
         addPet: function (name, progressHunger, progressHapiness, progressRest) {
-            let newPet = createPet(name, progressHunger, progressHapiness, progressRest);
+            let newPet = createPet(name, notifySubscribers, progressHunger, progressHapiness, progressRest);
             myPets.push(newPet);
             updateLocalStorage();
             notifySubscribers();
@@ -161,20 +122,40 @@ let PetsModel = (function () {
             myObservers.push(observer);
             notifySubscribers();
         },
-        feed: function (pet) {
-            console.log('feed');
+        feed: function (petName) {
+            let myPet = myPets.find(el => {
+                if (el.name === petName) {
+                    return true;
+                }
+                return false;
+            });
+            myPet.giveFood();
             updateLocalStorage();
             notifySubscribers();
         },
-        play: function (pet) {
-            console.log('play');
+        play: function (petName) {
+            let myPet = myPets.find(el => {
+                if (el.name === petName) {
+                    return true;
+                }
+                return false;
+            });
+            myPet.play();
             updateLocalStorage();
             notifySubscribers();
         },
-        sleep: function (pet) {
-            console.log('rest');
+        sleep: function (petName) {
+            let myPet = myPets.find(el => {
+                if (el.name === petName) {
+                    return true;
+                }
+                return false;
+            });
+            myPet.sleep();
             updateLocalStorage();
             notifySubscribers();
         }
     }
 }());
+
+//pet subiectul si PetsModel e observer-ul

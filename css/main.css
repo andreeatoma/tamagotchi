@@ -99,7 +99,6 @@ meter {
     vertical-align: middle;
     width: calc(100% - 185px);
     height: 35px;
-    -webkit-appearance: none; /* Reset appearance */
     border: 1px solid #000;
     border-radius: 5px;
     margin: 10px 0;

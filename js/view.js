@@ -27,85 +27,6 @@ function createListPets(PetsModel, onDeleteCb, onFeedCb, onPlayCb, onSleepCb) {
 
             div.appendChild(deleteBtn);
 
-            return {
-                increaseState: function (progressBar, value, type) {
-                    return pet.increaseLevel(value, type);
-                    return pet.changeProgressUI(progressBar, pet[type].progress);
-                },
-                increaseLevel: function (value, type) {
-                    if (value > 20 && value < 35) {
-                        displayMessages(PET_MESSAGES[type].warning, 'warning');
-                    } else if ((value > 90) && (value <= 100)) {
-                        displayMessages(PET_MESSAGES[type].info, 'info')
-                    } else if (value > 100) {
-                        value = 100;
-                        displayMessages(PET_MESSAGES[type].info, 'info')
-                    }
-                    pet[type].progress += pet[type].step;
-                    if (pet[type].progress > 100) {
-                        pet[type].progress = 100;
-                    }
-                },
-                changeProgressUI: function (progressBar, value) {
-                    if (value < 40) {
-                        progressBar.className = "progress state--danger";
-                    }
-                    else if (value < 70) {
-                        progressBar.className = "progress state--warning";
-                    }
-                    else if (value < 100) {
-                        progressBar.className = "progress state--success";
-                    }
-                    else if (value >= 100) {
-                        value = 100;
-                        progressBar.className = "progress state--success";
-                    }
-                    progressBar.style.width = value + "%";
-                },
-                decreaseState: function (progressBar, value, type) {
-                    return pet.decreaseLevel(type);
-                    return pet.changeProgressUI(progressBar, pet[type].progress);
-                },
-                decreaseLevel: function (type) {
-                    return pet[type].progress -= pet[type].step;
-                    if (pet[type].progress <= 10) {
-                        pet[type].progress = 10;
-                    }
-                },
-                decreaseStateFood: function () {
-                    return pet.decreaseState(meters[pet.name].foodMeter, pet.hunger.progress, 'hunger');
-                },
-                decreaseStateJoy: function () {
-                    return pet.decreaseState(meters[pet.name].playMeter, pet.hapiness.progress, 'hapiness');
-                },
-                decreaseStateRest: function () {
-                    return pet.decreaseState(meters[pet.name].sleepMeter, pet.rest.progress, 'rest');
-                },
-                idInterval: setInterval(function () {
-                    pet.decreaseStateFood();
-                    pet.decreaseStateJoy();
-                    pet.decreaseStateRest();
-                    pet.isAlive();
-                }, 5000),
-                changeProgressFood: function () {
-                    return pet.changeProgressUI(meters[pet.name].foodMeter, pet.hunger.progress);
-                },
-                changeProgressJoy: function () {
-                    return pet.changeProgressUI(meters[pet.name].playMeter, pet.hapiness.progress);
-                },
-                changeProgressRest: function () {
-                    return pet.changeProgressUI(meters[pet.name].sleepMeter, pet.rest.progress);
-                },
-                feed: function () {
-                    return pet.increaseState(meters[pet.name].foodMeter, pet.hunger.progress, 'hunger');
-                },
-                play: function () {
-                    return pet.increaseState(meters[pet.name].playMeter, pet.hapiness.progress, 'hapiness');
-                },
-                sleep: function () {
-                    return pet.increaseState(meters[pet.name].sleepMeter, pet.rest.progress, 'rest');
-                }
-            }
         });
     }
     PetsModel.subscribe(div);
@@ -125,9 +46,12 @@ function createStatsButton() {
     button.classList.add('btn', 'btn--large');
     return button;
 }
-function createMeters() {
+function createMeters(value) {
     let container_meter = document.createElement('div');
     let meter = document.createElement('meter');
+    meter.value = value;
+    meter.min = 0;
+    meter.max = 100;
     container_meter.appendChild(meter);
     return container_meter;
 }
@@ -143,9 +67,9 @@ function createStatsUI(pet, PetsModel, onFeedCb, onPlayCb, onSleepCb) {
     sleepBtn.classList.add('btn--sleep');
 
 
-    let foodMeterContainer = createMeters();
-    let playMeterContainer = createMeters();
-    let sleepMeterContainer = createMeters();
+    let foodMeterContainer = createMeters(pet.getFood());
+    let playMeterContainer = createMeters(pet.getHappiness());
+    let sleepMeterContainer = createMeters(pet.getRest());
 
     container_pet.appendChild(feedBtn);
     container_pet.appendChild(playBtn);
@@ -155,21 +79,17 @@ function createStatsUI(pet, PetsModel, onFeedCb, onPlayCb, onSleepCb) {
     container_pet.appendChild(sleepMeterContainer);
 
     feedBtn.addEventListener("click", () => {
-        onFeedCb(pet);
+        onFeedCb(pet.name);
     });
     playBtn.addEventListener("click", () => {
-        onPlayCb(pet);
+        onPlayCb(pet.name);
     });
     sleepBtn.addEventListener("click", () => {
-        onSleepCb(pet);
+        onSleepCb(pet.name);
     });
 
-    meters[pet.name] = {};
-    meters[pet.name].foodMeter = foodMeterContainer.querySelector("meter");
-    meters[pet.name].playMeter = playMeterContainer.querySelector("meter");
-    meters[pet.name].sleepMeter = sleepMeterContainer.querySelector("meter");
 
-    return container_pet
+    return container_pet;
 }
 
 function displayMessages(textMessage, typeOfMessage) {

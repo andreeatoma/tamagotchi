@@ -14,7 +14,7 @@ function createListPets(PetsModel, onDeleteCb, onFeedCb, onPlayCb, onSleepCb) {
 
     div.notify = function (petsList) {
         div.innerHTML = null;
-        petsList.forEach(function (pet, name) {
+        petsList.forEach((pet, name) => {
 
             div.appendChild(displayName(pet));
             div.appendChild(createStatsUI(pet, PetsModel, onFeedCb, onPlayCb, onSleepCb));
@@ -23,7 +23,6 @@ function createListPets(PetsModel, onDeleteCb, onFeedCb, onPlayCb, onSleepCb) {
             deleteBtn.setAttribute("data-name", pet.name);
             deleteBtn.classList.add("btn", "btn--delete");
             deleteBtn.innerText = "Delete pet";
-
 
             div.appendChild(deleteBtn);
 
@@ -98,7 +97,7 @@ function displayMessages(PetsModel, textMessage, typeOfMessage) {
 
     container_messages.notify = function (messagesList) {
         container_messages.innerHTML = null;
-        messagesList.forEach(function () {
+        messagesList.forEach(() => {
 
             let message = document.createElement('p');
             message.textContent = textMessage;
@@ -122,7 +121,7 @@ function displayMessages(PetsModel, textMessage, typeOfMessage) {
                     container_messages.classList.add('bg--default');
             }
             // remove the message after 3 seconds
-            setTimeout(function () {
+            setTimeout(() => {
                 if (container_messages) {
                     container_messages.parentNode.removeChild(container_messages);
                 }

@@ -28,7 +28,7 @@ wrapper_pet.appendChild(petView);
 
 
 
-addNewPet.addEventListener("click", function () {
+addNewPet.addEventListener("click",  () => {
     let newPet = PetsModel.addPet(petInput.value);
     petInput.value = "";
     // if () {

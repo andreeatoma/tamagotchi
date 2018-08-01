@@ -15,7 +15,7 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
             step
         },
         age,
-        isAlive: function () {
+        isAlive() {
             if ((pet.rest.progress <= 10) || (pet.hunger.progress <= 20) || (pet.hapiness.progress <= 20) || pet.age === 15) {
                 clearInterval(pet.idInterval);
                 return false;
@@ -32,7 +32,7 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
         decreaseStateRest() {
             pet.rest.progress -= pet.rest.step;
         },
-        idInterval: setInterval(function () {
+        idInterval: setInterval(() => {
             pet.decreaseStateFood();
             pet.decreaseStateJoy();
             pet.decreaseStateRest();
@@ -42,10 +42,10 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
     }
     let publicAPI = {
         name: name,
-        getName: function () {
+        getName() {
             return pet.name;
         },
-        serialize: function () {
+        serialize() {
             return {
                 name: name,
                 hunger: pet.hunger.progress,
@@ -76,7 +76,7 @@ function createPet(name, onUpdateCb, progressHunger = 80, progressHapiness = 90,
     return publicAPI;
 };
 
-let PetsModel = (function () {
+let PetsModel = (function() {
     let myPets = [];
     let myObservers = [];
 
@@ -99,14 +99,14 @@ let PetsModel = (function () {
         updateLocalStorage();
     }
     return {
-        addPet: function (name, hunger, happy, rest) {
+        addPet(name, hunger, happy, rest) {
             let newPet = createPet(name, notifySubscribers, hunger, happy, rest);
             myPets.push(newPet);
             notifySubscribers();
             return newPet;
         },
-        removePet: function () {
-            myPets.forEach(function (el) {
+        removePet() {
+            myPets.forEach(el => {
                 myPets.splice(el, 1)
             });
             notifySubscribers();
@@ -115,7 +115,7 @@ let PetsModel = (function () {
             myObservers.push(observer);
             notifySubscribers();
         },
-        feed: function (petName) {
+        feed(petName) {
             let myPet = myPets.find(el => {
                 if (el.name === petName) {
                     return true;
@@ -125,7 +125,7 @@ let PetsModel = (function () {
             myPet.giveFood();
             notifySubscribers();
         },
-        play: function (petName) {
+        play(petName) {
             let myPet = myPets.find(el => {
                 if (el.name === petName) {
                     return true;
@@ -135,7 +135,7 @@ let PetsModel = (function () {
             myPet.play();
             notifySubscribers();
         },
-        sleep: function (petName) {
+        sleep(petName) {
             let myPet = myPets.find(el => {
                 if (el.name === petName) {
                     return true;

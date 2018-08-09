@@ -1,0 +1,19 @@
+{
+    "extends": ["airbnb-base", "prettier"],
+    "rules": {
+        "prefer-const": "off",
+        "no-unused-vars": "off",
+        "func-names": "off",
+        "dot-notation":"off",
+        "no-use-before-define":"off",
+        "linebreak-style":"off",
+        "no-else-return": "off",
+        "no-undef":"off"
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "env": {
+      "browser": true  
+    }
+}

@@ -1,0 +1,194 @@
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../images/3.png) no-repeat center/cover;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+* {
+    font: 1em 'Courier New', Courier, monospace;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+input {
+    border: none;
+    outline: none;
+}
+ul {
+    list-style-type: none;
+    font-size: 1.3em;
+}
+#particles-js {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+main {
+    min-height: calc(100% - 40px);
+}
+footer {
+    background: #000;
+    min-height: 40px;
+    text-align: center;
+    padding-top: 10px;
+}
+footer p {
+    color: #fff;
+}
+.wrapper-app {
+    display: flex;
+}
+h1 {
+    padding: 20px;
+    text-transform: uppercase;
+}
+.add-pet,
+#pet-interaction,
+.pet-name {
+    width: 320px;
+    margin: 0 30px 30px 30px;
+    padding: 30px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+#pet-interaction {
+    width: 100%;
+}
+.add-pet .btn {
+    margin-top: 5px;
+    width: 90%;
+}
+.pet-interaction {
+    width: calc(100% - 300px);
+}
+.input {
+    width: 90%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background: black;
+    color: #fff;
+}
+.input::-webkit-input-placeholder {
+    color: #fff;
+}
+.input::-moz-input-placeholder {
+    color: #fff;
+}
+.input::-o-input-placeholder {
+    color: #fff;
+}
+.input::-ms-input-placeholder {
+    color: #fff;
+}
+.btn--large.btn--play:before {
+    content: "\f11b"; 
+}
+.btn--large.btn--sleep:before {
+    content: "\f186";
+}
+meter {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 185px);
+    height: 35px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+meter:first-of-type {
+    margin-top: 20px;
+}
+.progress {
+    width:0%;
+    background:red;
+    height:33px;
+    border-radius: 5px;
+}
+.state--danger {
+  background: red;
+}
+.state--warning {
+    background: orange;
+}
+.state--success {
+  background: green;
+}
+.message__box {
+    position: relative;
+    width: 250px;
+    margin: 10px auto;
+    background: #eee;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+ .message__box p {
+   line-height: 1.5;
+   padding: 20px;
+   color: #fff;
+ }
+ .message__box button {
+   background: none;
+   border: none;
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   font-size: 1.1em;
+   color: #fff;
+ }
+ .hidden {
+     display: none;
+ }
+ .bg--warning {
+    background: #dc3545;
+ }
+ .bg--info {
+    background: #e85cde;
+ }
+ .bg--default {
+    background: #6c757d;
+ }
+ .pet__box {
+    margin: 25px auto;
+}
+.pet-name {
+    margin-left: 0;
+}
+.pet-name p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.state__level {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+@media screen and (max-width: 992px) {
+    .wrapper-app {
+        flex-direction: column;
+    }
+    .pet-interaction {
+        width: 100%;
+        max-width: 90%;
+        margin: 15px auto;
+    }
+}
+@media screen and (max-width: 576px) {
+    meter {
+        display: block;
+        width: 100%;
+    }
+    .pet__box {
+        text-align: center;
+    }
+    .btn {
+        display: inline-block;
+        margin: 10px 0;
+    }
+}
